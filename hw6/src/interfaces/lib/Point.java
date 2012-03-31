@@ -32,8 +32,11 @@ public abstract class Point
 	 */
 	protected int getCoord(int dim)
 	{
-		throw new UnsupportedOperationException(
-				"The method is not implemented yet.");
+		if (dim < 0 || dim >= coords.length) {
+			throw new IllegalArgumentException("Invalid Dimension");
+		}
+		
+		return coords[dim];
 	}
 
 	/**
@@ -48,8 +51,11 @@ public abstract class Point
 	 */
 	protected void setCoord(int dim, int val)
 	{
-		throw new UnsupportedOperationException(
-				"The method is not implemented yet.");
+		if (dim < 0 || dim >= coords.length) {
+			throw new IllegalArgumentException("Invalid Dimension");
+		}
+		
+		coords[dim] = val;
 	}
 
 	/**

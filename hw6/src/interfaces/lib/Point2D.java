@@ -19,8 +19,8 @@ public final class Point2D extends Point
 	public Point2D(int x, int y)
 	{
 		super(2);
-		throw new UnsupportedOperationException(
-				"The method is not implemented yet.");
+		setCoord(0, x);
+		setCoord(1, y);
 	}
 
 	/**
@@ -29,8 +29,7 @@ public final class Point2D extends Point
 	 */
 	public int getX()
 	{
-		throw new UnsupportedOperationException(
-				"The method is not implemented yet.");
+		return getCoord(0);
 	}
 	
 	/**
@@ -39,8 +38,7 @@ public final class Point2D extends Point
 	 */
 	public int getY()
 	{
-		throw new UnsupportedOperationException(
-				"The method is not implemented yet.");
+		return getCoord(1);
 	}
 
 }
