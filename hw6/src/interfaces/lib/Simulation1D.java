@@ -11,8 +11,6 @@ import interfaces.interfaces.Visualization;
  */
 public class Simulation1D extends Simulation<Point1D> {
 
-	private int row;
-	
 	/**
 	 * Constructs a Simulation for a given ruleset and visualization using the default Viewport
 	 * @param r the Rule to abide by

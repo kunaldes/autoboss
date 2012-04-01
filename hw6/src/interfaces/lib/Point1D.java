@@ -30,4 +30,10 @@ public final class Point1D extends Point
 		return getCoord(0);
 	}
 
+	@Override
+	public Point copy()
+	{
+		return new Point1D(getCoord());
+	}
+	
 }
