@@ -52,10 +52,13 @@ public class State<T extends Point> implements Iterable<T>
 			return new PointIterator(p1, p2);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public int getCellState(T relPoint)
 		{
-			return grid.get(relPoint.add(offset));
+			T p = (T) relPoint.add(offset);
+			p = modPoint(p);
+			return grid.get(p);
 		}
 
 		@Override
@@ -433,7 +436,9 @@ public class State<T extends Point> implements Iterable<T>
 		{
 			if(wraps[i])
 			{
-				ret.setCoord(i, ret.getCoord(i) % size.getCoord(i));
+				int mod = ret.getCoord(i) % size.getCoord(i);
+				mod = (mod < 0)? mod + size.getCoord(i): mod;
+				ret.setCoord(i, mod);
 			}
 		}
 		return ret;
