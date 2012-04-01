@@ -138,12 +138,12 @@ public abstract class Point implements Comparable<Point>
 			return 0;
 		else
 		{
-			int c = Integer.signum(Integer.compare(this.coords[0], p.coords[0]));
+			int c = Integer.signum(this.coords[0] - p.coords[0]);
 			if(c == 0) //strictly speaking unnecessary, but prevents extra checks
 				return c;
 			for(int i = 1; i < coords.length; i++)
 			{
-				if(Integer.signum(Integer.compare(this.coords[i], p.coords[i])) != c)
+				if(Integer.signum(this.coords[i] - p.coords[i]) != c)
 					return 0;
 			}
 			return c;
