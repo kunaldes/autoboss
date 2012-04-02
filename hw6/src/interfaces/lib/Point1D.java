@@ -19,6 +19,7 @@ public final class Point1D extends Point
 	public Point1D(int coord)
 	{
 		super(1);
+		setCoord(0, coord);
 	}
 
 	/**
