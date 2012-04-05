@@ -2,6 +2,7 @@ package interfaces.lib;
 
 import interfaces.interfaces.Rule;
 import interfaces.interfaces.Visualization;
+import interfaces.plugin.LifeViewPort;
 
 /**
  * A concrete implementation of a 2 dimensional simulation.
@@ -17,6 +18,7 @@ public class Simulation2D extends Simulation<Point2D> {
 	 * @param v the Visualization to use in the simulation.
 	 */
 	public Simulation2D(Rule<Point2D> r, Visualization v) {
+		super(r, new LifeViewPort());
 		throw new UnsupportedOperationException("The method is not implemented yet.");
 	}
 	/**

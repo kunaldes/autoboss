@@ -17,6 +17,7 @@ public class Simulation1D extends Simulation<Point1D> {
 	 * @param v the Visualization specifying colors
 	 */
 	public Simulation1D(Rule<Point1D> r, Visualization v) {
+		super(r, null); //null is placeholder
 		throw new UnsupportedOperationException("The method is not implemented yet.");
 	}
 
