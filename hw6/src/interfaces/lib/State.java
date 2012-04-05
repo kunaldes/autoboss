@@ -26,12 +26,12 @@ import java.util.NoSuchElementException;
  */
 public class State<T extends Point> implements Iterable<T>
 {
-	
+
 	private class Hood implements Neighborhood<T>
 	{
 		Point offset;
 		int radius;
-		
+
 		public Hood(Point p, int radius)
 		{
 			offset = p.copy();
@@ -44,7 +44,7 @@ public class State<T extends Point> implements Iterable<T>
 		{
 			T p1 = (T) offset.copy();
 			T p2 = (T) offset.copy();
-			for(int i = 0; i<p1.numDimensions(); i++)
+			for (int i = 0; i < p1.numDimensions(); i++)
 			{
 				p1.setCoord(i, -radius);
 				p2.setCoord(i, radius);
@@ -66,24 +66,24 @@ public class State<T extends Point> implements Iterable<T>
 		{
 			return radius;
 		}
-		
+
 	}
 
 	private class PointIterator implements Iterator<T>
 	{
 		Point p;
 		Point max;
-		
+
 		@SuppressWarnings("unchecked")
 		private PointIterator(T max)
 		{
 			T p = (T) max.copy();
-			for(int i = 0; i < max.numDimensions(); i++)
+			for (int i = 0; i < max.numDimensions(); i++)
 				p.setCoord(i, 0);
 			this.p = p;
 			this.max = max.copy();
 		}
-		
+
 		private PointIterator(T start, T max)
 		{
 			this.p = start.copy();
@@ -93,7 +93,7 @@ public class State<T extends Point> implements Iterable<T>
 		@Override
 		public boolean hasNext()
 		{
-			if(p.compareTo(max) < 1) 
+			if (p.compareTo(max) < 1)
 				return true;
 			return false;
 		}
@@ -103,13 +103,14 @@ public class State<T extends Point> implements Iterable<T>
 		public T next()
 		{
 			int i = 0;
-			while(p.getCoord(i) + 1 >= max.getCoord(i))
+			while (p.getCoord(i) + 1 >= max.getCoord(i))
 			{
 				i++;
-				if(i >= p.numDimensions())
-					throw new NoSuchElementException("There are no more elements");
+				if (i >= p.numDimensions())
+					throw new NoSuchElementException(
+							"There are no more elements");
 			}
-			p.setCoord(i, p.getCoord(i)+1);
+			p.setCoord(i, p.getCoord(i) + 1);
 			return (T) p.copy();
 		}
 
@@ -118,10 +119,9 @@ public class State<T extends Point> implements Iterable<T>
 		{
 			throw new UnsupportedOperationException();
 		}
-		
+
 	}
-	
-	
+
 	private HashMap<T, Integer> grid;
 	private T size;
 	private boolean[] wraps;
@@ -274,16 +274,18 @@ public class State<T extends Point> implements Iterable<T>
 	 * i have value between 0 and getSize()'s ith coordinate, inclusive.
 	 * 
 	 * @return the farthest point from the origin
-	 * @throws RuntimeException if T implements copy incorrectly
+	 * @throws RuntimeException
+	 *             if T implements copy incorrectly
 	 */
 	@SuppressWarnings("unchecked")
 	public T getSize()
 	{
 		Point s = size.copy();
-		if(size.getClass().isInstance(s))
+		if (size.getClass().isInstance(s))
 			return (T) size.copy();
 		else
-			throw new RuntimeException("Point subclass incorrectly implements copy method");
+			throw new RuntimeException(
+					"Point subclass incorrectly implements copy method");
 	}
 
 	/**
@@ -299,10 +301,10 @@ public class State<T extends Point> implements Iterable<T>
 	{
 		this.size = size;
 		Iterator<T> i = grid.keySet().iterator();
-		while(i.hasNext())
+		while (i.hasNext())
 		{
 			T p = i.next();
-			if(p.compareTo(size) >= 0)
+			if (p.compareTo(size) >= 0)
 				i.remove();
 		}
 	}
@@ -319,11 +321,12 @@ public class State<T extends Point> implements Iterable<T>
 	public void setState(HashMap<T, Integer> grid)
 	{
 		Iterator<T> i = grid.keySet().iterator();
-		while(i.hasNext())
+		while (i.hasNext())
 		{
 			T p = i.next();
-			if(p.compareTo(size) >= 0)
-				throw new IllegalArgumentException("Grid contains points that are not in bounds");
+			if (p.compareTo(size) >= 0)
+				throw new IllegalArgumentException(
+						"Grid contains points that are not in bounds");
 		}
 	}
 
@@ -342,9 +345,10 @@ public class State<T extends Point> implements Iterable<T>
 	 */
 	public void setCellState(T cell, int state)
 	{
-		if(cell.numDimensions() != this.size.numDimensions())
-			throw new IllegalArgumentException("Point is of different dimensions");
-		if(state < 0 || state > this.numStates)
+		if (cell.numDimensions() != this.size.numDimensions())
+			throw new IllegalArgumentException(
+					"Point is of different dimensions");
+		if (state < 0 || state > this.numStates)
 			throw new IllegalArgumentException("State is out of bounds");
 		this.grid.put(cell, state);
 	}
@@ -361,10 +365,10 @@ public class State<T extends Point> implements Iterable<T>
 	 */
 	public int getCellState(T cell)
 	{
-		if(cell.compareTo(size) >= 0)
+		if (cell.compareTo(size) >= 0)
 			throw new IllegalArgumentException("Point is not in bounds");
 		Integer i = grid.get(cell);
-		if(i == null)
+		if (i == null)
 			return 0;
 		else
 			return i;
@@ -394,14 +398,14 @@ public class State<T extends Point> implements Iterable<T>
 	 */
 	public void step(Rule<T> r)
 	{
-		for(T p : this)
+		for (T p : this)
 		{
 			int i = r.stepCell(getNeighborhood(p, r.getNeighborhoodSize()));
-			if(i != 0)
+			if (i != 0)
 			{
 				grid.put(p, i);
 			}
-			else if(grid.containsKey(p))
+			else if (grid.containsKey(p))
 			{
 				grid.remove(p);
 			}
@@ -432,12 +436,12 @@ public class State<T extends Point> implements Iterable<T>
 	private T modPoint(T p)
 	{
 		T ret = (T) p.copy();
-		for(int i = 0; i < ret.numDimensions(); i++)
+		for (int i = 0; i < ret.numDimensions(); i++)
 		{
-			if(wraps[i])
+			if (wraps[i])
 			{
 				int mod = ret.getCoord(i) % size.getCoord(i);
-				mod = (mod < 0)? mod + size.getCoord(i): mod;
+				mod = (mod < 0) ? mod + size.getCoord(i) : mod;
 				ret.setCoord(i, mod);
 			}
 		}

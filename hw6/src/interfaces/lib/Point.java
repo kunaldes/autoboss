@@ -20,7 +20,7 @@ import java.util.Arrays;
 public abstract class Point implements Comparable<Point>
 {
 
-	int[] coords;
+	private int[] coords;
 
 	/**
 	 * Constructs a point with a given dimension.

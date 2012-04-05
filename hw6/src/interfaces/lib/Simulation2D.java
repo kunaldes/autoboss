@@ -19,18 +19,6 @@ public class Simulation2D extends Simulation<Point2D> {
 	public Simulation2D(Rule<Point2D> r, Visualization v) {
 		throw new UnsupportedOperationException("The method is not implemented yet.");
 	}
-
-	/**
-	 * Returns the current state of the simulation.
-	 * @return the current state of the simulation.
-	 */
-	@Override
-	public State<Point2D> getState()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * Changes the rule to the new rule specified by r. Can be used to change
 	 * rules in the GUI.
@@ -41,6 +29,12 @@ public class Simulation2D extends Simulation<Point2D> {
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public State<Point2D> getState()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

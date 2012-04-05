@@ -5,6 +5,8 @@ import interfaces.lib.State;
 
 import java.awt.Graphics;
 
+import javax.swing.JToolBar;
+
 
 /**
  * The Viewport class specifies a more advanced way than Visualization to
@@ -36,5 +38,7 @@ public interface Viewport<T extends Point> {
 	 * @param v The Visualization that the Viewport should use to determine colors. 
 	 */
 	public void setVisualization(Visualization v);
+	
+	public JToolBar getToolbar();
 
 }
