@@ -134,6 +134,8 @@ public abstract class Point implements Comparable<Point>
 	@Override
 	public int compareTo(Point p)
 	{
+		if(p == null)
+			throw new IllegalArgumentException("Cannot compareTo null value");
 		if(this.coords.length != p.coords.length)
 			return 0;
 		else

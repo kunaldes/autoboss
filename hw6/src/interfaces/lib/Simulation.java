@@ -150,12 +150,8 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		switch (e.getActionCommand()) {
-		case "stop":
+		String action = e.getActionCommand();
+		if(action == "stop")
 			this.running = false;
-			break;
-		default:
-			break;
-		}
 	}
 }
