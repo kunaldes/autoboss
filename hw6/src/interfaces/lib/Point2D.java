@@ -5,7 +5,6 @@ package interfaces.lib;
  * the origin. Gives functions to get the x and y coordinates of the point.
  * 
  * @author Kunal Desai, James Grugett, Prasanth Somasundar
- * 
  */
 public final class Point2D extends Point
 {
@@ -13,10 +12,8 @@ public final class Point2D extends Point
 	/**
 	 * Constructs a new Point object representing the point (x, y)
 	 * 
-	 * @param x
-	 *            The x-coordinate of the point being constructed
-	 * @param y
-	 *            The y-coordinate of the point being constructed
+	 * @param x The x-coordinate of the point being constructed
+	 * @param y The y-coordinate of the point being constructed
 	 */
 	public Point2D(int x, int y)
 	{

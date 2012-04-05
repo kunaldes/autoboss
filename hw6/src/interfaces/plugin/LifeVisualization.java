@@ -11,7 +11,7 @@ public class LifeVisualization implements Visualization
 	@Override
 	public Color getColorRep(int state)
 	{
-		if(state == 1)
+		if (state == 1)
 			return Color.YELLOW;
 		else
 			return Color.BLACK;

@@ -10,22 +10,24 @@ import java.awt.Graphics;
 import javax.swing.JToolBar;
 
 
-public class LifeViewPort implements Viewport<Point2D> {
-	private Visualization v;
-	
+public class LifeViewPort implements Viewport<Point2D>
+{
+	private Visualization	v;
+
 	@Override
-	public void drawState(State<Point2D> s, Graphics g) {
+	public void drawState(State<Point2D> s, Graphics g)
+	{
 		g.setColor(v.getColorRep(1));
 		int cellWidth = 10;
-		for(Point2D p : s)
-		{
-			if(s.getCellState(p) == 1)
-				g.fillRect(p.getX()*cellWidth, p.getY()*cellWidth, cellWidth, cellWidth);
+		for (Point2D p : s) {
+			if (s.getCellState(p) == 1)
+				g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
 		}
 	}
 
 	@Override
-	public void setVisualization(Visualization v) {
+	public void setVisualization(Visualization v)
+	{
 		this.v = v;
 	}
 
