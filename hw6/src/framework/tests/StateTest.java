@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
-import interfaces.lib.Point1D;
-import interfaces.lib.Point2D;
-import interfaces.lib.State;
+import framework.lib.Point1D;
+import framework.lib.Point2D;
+import framework.lib.State;
 
 import org.junit.Test;
 

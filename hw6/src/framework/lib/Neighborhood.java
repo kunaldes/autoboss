@@ -1,4 +1,4 @@
-package interfaces.lib;
+package framework.lib;
 
 /**
  * Defines a neighborhood around a given type of point, with a given radius.

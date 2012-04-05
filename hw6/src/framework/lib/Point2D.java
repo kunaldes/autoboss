@@ -1,4 +1,4 @@
-package interfaces.lib;
+package framework.lib;
 
 /**
  * Creates a concrete 2 dimensional point implementation. (0,0) is considered

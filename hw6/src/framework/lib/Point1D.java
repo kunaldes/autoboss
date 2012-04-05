@@ -1,4 +1,4 @@
-package interfaces.lib;
+package framework.lib;
 
 /**
  * A concrete 1 dimensional point that acts like a facade for the Point abstract

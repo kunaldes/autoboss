@@ -1,6 +1,6 @@
-package interfaces.lib;
+package framework.lib;
 
-import interfaces.interfaces.Rule;
+import framework.interfaces.Rule;
 
 import java.util.HashMap;
 import java.util.Iterator;

@@ -1,9 +1,9 @@
-package interfaces.plugin;
+package framework.plugin;
 
-import interfaces.interfaces.Viewport;
-import interfaces.interfaces.Visualization;
-import interfaces.lib.Point2D;
-import interfaces.lib.State;
+import framework.interfaces.Viewport;
+import framework.interfaces.Visualization;
+import framework.lib.Point2D;
+import framework.lib.State;
 
 import java.awt.Graphics;
 

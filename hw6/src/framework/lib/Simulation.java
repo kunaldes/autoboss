@@ -1,8 +1,8 @@
-package interfaces.lib;
+package framework.lib;
 
-import interfaces.interfaces.Rule;
-import interfaces.interfaces.Viewport;
-import interfaces.interfaces.Visualization;
+import framework.interfaces.Rule;
+import framework.interfaces.Viewport;
+import framework.interfaces.Visualization;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,6 +1,6 @@
-package interfaces.plugin;
+package framework.plugin;
 
-import interfaces.interfaces.Visualization;
+import framework.interfaces.Visualization;
 
 import java.awt.Color;
 

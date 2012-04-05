@@ -1,4 +1,4 @@
-package interfaces.interfaces;
+package framework.interfaces;
 
 import java.awt.Color;
 

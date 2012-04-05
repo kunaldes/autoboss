@@ -1,8 +1,8 @@
-package interfaces.interfaces;
+package framework.interfaces;
 
-import interfaces.lib.Neighborhood;
-import interfaces.lib.Point;
-import interfaces.lib.State;
+import framework.lib.Neighborhood;
+import framework.lib.Point;
+import framework.lib.State;
 
 
 /**

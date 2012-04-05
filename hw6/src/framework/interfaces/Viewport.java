@@ -1,7 +1,7 @@
-package interfaces.interfaces;
+package framework.interfaces;
 
-import interfaces.lib.Point;
-import interfaces.lib.State;
+import framework.lib.Point;
+import framework.lib.State;
 
 import java.awt.Graphics;
 

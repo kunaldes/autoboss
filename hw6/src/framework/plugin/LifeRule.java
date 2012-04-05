@@ -1,9 +1,9 @@
-package interfaces.plugin;
+package framework.plugin;
 
-import interfaces.interfaces.Rule;
-import interfaces.lib.Neighborhood;
-import interfaces.lib.Point2D;
-import interfaces.lib.State;
+import framework.interfaces.Rule;
+import framework.lib.Neighborhood;
+import framework.lib.Point2D;
+import framework.lib.State;
 
 
 public class LifeRule implements Rule<Point2D>

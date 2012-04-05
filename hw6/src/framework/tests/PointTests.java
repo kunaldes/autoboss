@@ -4,9 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import junit.framework.Assert;
-import interfaces.lib.Point;
-import interfaces.lib.Point1D;
-import interfaces.lib.Point2D;
+import framework.lib.Point;
+import framework.lib.Point1D;
+import framework.lib.Point2D;
 
 import org.junit.Test;
 

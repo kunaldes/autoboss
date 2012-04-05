@@ -1,7 +1,7 @@
-package interfaces.lib;
+package framework.lib;
 
-import interfaces.interfaces.Rule;
-import interfaces.interfaces.Visualization;
+import framework.interfaces.Rule;
+import framework.interfaces.Visualization;
 
 
 /**
