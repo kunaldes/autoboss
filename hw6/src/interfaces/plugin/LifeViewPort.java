@@ -7,6 +7,8 @@ import interfaces.lib.State;
 
 import java.awt.Graphics;
 
+import javax.swing.JToolBar;
+
 
 public class LifeViewPort implements Viewport<Point2D> {
 	private Visualization v;
@@ -25,6 +27,13 @@ public class LifeViewPort implements Viewport<Point2D> {
 	@Override
 	public void setVisualization(Visualization v) {
 		this.v = v;
+	}
+
+	@Override
+	public JToolBar getToolbar()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
