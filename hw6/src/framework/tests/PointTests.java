@@ -1,4 +1,4 @@
-package tests;
+package framework.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

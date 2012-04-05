@@ -151,7 +151,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String action = e.getActionCommand();
-		if(action == "stop")
+		if(action.equals("stop"))
 			this.running = false;
 	}
 }
