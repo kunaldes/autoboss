@@ -25,29 +25,4 @@ public class Simulation1D extends Simulation<Point1D>
 		super(r, v, new DefaultViewport1D());
 	}
 
-	/**
-	 * Returns the current state of the simulation.
-	 * 
-	 * @return the current state of the simulation.
-	 */
-	@Override
-	public State<Point1D> getState()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Changes the rule to the new rule specified by r. Can be used to change
-	 * rules in the GUI.
-	 * 
-	 * @param r the new Rule to use.
-	 */
-	@Override
-	public void setRule(Rule<Point1D> r)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -42,7 +42,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 
 	private JFrame		frame;
 	private JPanel		controls;
-	private JPanel view;
+	private JPanel		view;
 	private JButton		playBtn, pauseBtn, stepBtn;
 	private JSlider		speedSlider;
 	private Timer		playTimer;
@@ -81,17 +81,22 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		setVisualization(vis);
 
 		this.state = r.getInitialState();
-		
+
 		playing = false;
 	}
 
+	/**
+	 * Initialize the GUI controls for the cellular automata. This includes
+	 * buttons to step, start, and pause, as well as a slider to determine the
+	 * speed of playback.
+	 */
 	private void initControlsGUI()
 	{
 		stepBtn = new JButton();
 		stepBtn.setText("Step");
 		stepBtn.setActionCommand("step");
 		stepBtn.addActionListener(this);
-		
+
 		playBtn = new JButton();
 		playBtn.setText("Play");
 		playBtn.setActionCommand("play");
@@ -123,12 +128,16 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		controls.add(speedSlider);
 	}
 
+	/**
+	 * Initialize the GUI by creating a JFrame and adding the controls panel and
+	 * the ViewportPanel
+	 */
 	private void initGUI()
 	{
 		initControlsGUI();
 
 		view = new ViewportPanel<T>(viewport, state);
-		view.setMinimumSize(new Dimension(400, 400));
+		view.setMinimumSize(new Dimension(500, 500));
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.add(view);
@@ -144,6 +153,10 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		frame.setVisible(true);
 	}
 
+	/**
+	 * @return the number of milliseconds of delay between steps in the
+	 *         play-back based on the speedSlider setting
+	 */
 	private int getSpeed()
 	{
 		int val = speedSlider.getValue() - speedSlider.getMinimum();
@@ -153,6 +166,9 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		return (int) (Math.pow(fraction * 10, 3)) + 50;
 	}
 
+	/**
+	 * Has the timer start and send its event after getSpeed() delay
+	 */
 	private void timerNextStep()
 	{
 		if (!playTimer.isRunning()) {
@@ -161,6 +177,12 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		}
 	}
 
+	/**
+	 * Sets the simulation to play or not play, which steps or doesn't step the
+	 * automata automatically.
+	 * 
+	 * @param playing whether to step the automata or not
+	 */
 	private void setPlaying(boolean playing)
 	{
 		stepBtn.setEnabled(!playing);
@@ -200,6 +222,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		for (int i = 0; i < times; i++) {
 			this.state.step(this.rule);
 		}
+		view.repaint();
 	}
 
 	/**
@@ -251,7 +274,10 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	 * 
 	 * @return the current state of the simulation
 	 */
-	public abstract State<T> getState();
+	public State<T> getState()
+	{
+		return state;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)

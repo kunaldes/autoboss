@@ -22,27 +22,6 @@ public class Simulation2D extends Simulation<Point2D>
 	public Simulation2D(Rule<Point2D> r, Visualization v)
 	{
 		super(r, v, new DefaultViewport2D());
-		//throw new UnsupportedOperationException("The method is not implemented yet.");
-	}
-
-	/**
-	 * Changes the rule to the new rule specified by r. Can be used to change
-	 * rules in the GUI.
-	 * 
-	 * @param r the new Rule to use.
-	 */
-	@Override
-	public void setRule(Rule<Point2D> r)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public State<Point2D> getState()
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
