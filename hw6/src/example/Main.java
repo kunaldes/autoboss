@@ -54,10 +54,14 @@ public class Main
 		Simulation<Point1D> sim = Simulation.getSimulation(rule, viz);
 		*/
 		
-		LifeRule life = new LifeRule();
+		//Rule110 life = new Rule110();
+		Seeds s = new Seeds();
 		LifeVisualization vis = new LifeVisualization();
-
-		Simulation.getSimulation(life, vis).run();
+		
+		//BriansBrainRule bbr = new BriansBrainRule();
+		//BriansBrainVisualization bbv = new BriansBrainVisualization();
+		
+		Simulation.getSimulation(s, vis).run();
 
 	}
 

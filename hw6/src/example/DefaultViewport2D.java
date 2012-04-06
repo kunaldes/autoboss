@@ -23,14 +23,9 @@ public class DefaultViewport2D implements Viewport<Point2D>
 		Point2D size = s.getSize();
 		int cellWidth = r.height/((size.getX() < size.getY()) ? size.getY() : size.getX());
 		for (Point2D p : s) {
-			if (s.getCellState(p) == 1) {
-				g.setColor(v.getColorRep(1));
-				g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
-			}
-			else {
-				g.setColor(v.getColorRep(0));
-				g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
-			}
+			g.setColor(v.getColorRep(s.getCellState(p)));
+			g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
+
 			g.setColor(Color.white);
 			g.drawRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
 		}
