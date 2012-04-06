@@ -1,19 +1,21 @@
 package framework.lib;
 
-import framework.interfaces.Rule;
-import framework.interfaces.Viewport;
-import framework.interfaces.Visualization;
-import framework.lib.Simulation2D;
-
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.Timer;
+
+import framework.interfaces.Rule;
+import framework.interfaces.Viewport;
+import framework.interfaces.Visualization;
 
 
 /**
@@ -40,8 +42,9 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	private boolean		playing;
 
 	private JFrame		frame;
-	private JPanel		controls, view;
-	private JButton		playBtn, pauseBtn;
+	private JPanel		controls;
+	private JPanel view;
+	private JButton		playBtn, pauseBtn, stepBtn;
 	private JSlider		speedSlider;
 	private Timer		playTimer;
 
@@ -58,28 +61,38 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	public static <T extends Point> Simulation<T> getSimulation(Rule<T> r,
 			Visualization v)
 	{
-		Class<? extends Point> c = r.getOrigin().getClass();
-		if (c.isInstance(Point1D.class))
-			return (Simulation<T>) new Simulation1D((Rule<Point1D>) r, v);
-		else if (c.isInstance(Point2D.class))
-			return (Simulation<T>) new Simulation2D((Rule<Point2D>) r, v);
+		Point p = r.getOrigin();
+		Simulation<T> sim;
+		if (Point1D.class.isInstance(p))
+			sim = (Simulation<T>) new Simulation1D((Rule<Point1D>) r, v);
+		else if (Point2D.class.isInstance(p))
+			sim = (Simulation<T>) new Simulation2D((Rule<Point2D>) r, v);
 		else
 			throw new RuntimeException("Illegal Point");
+		return sim;
 	}
 
 	/**
 	 * Constructs a simulation.
 	 */
-	protected Simulation(Rule<T> r, Viewport<T> viewport)
+	protected Simulation(Rule<T> r, Visualization vis, Viewport<T> viewport)
 	{
 		this.rule = r;
 		this.viewport = viewport;
+		setVisualization(vis);
 
+		this.state = r.getInitialState();
+		
 		playing = false;
 	}
 
 	private void initControlsGUI()
 	{
+		stepBtn = new JButton();
+		stepBtn.setText("Step");
+		stepBtn.setActionCommand("step");
+		stepBtn.addActionListener(this);
+		
 		playBtn = new JButton();
 		playBtn.setText("Play");
 		playBtn.setActionCommand("play");
@@ -87,7 +100,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 
 		pauseBtn = new JButton();
 		pauseBtn.setText("Pause");
-		playBtn.setActionCommand("pause");
+		pauseBtn.setActionCommand("pause");
 		pauseBtn.addActionListener(this);
 
 		speedSlider = new JSlider();
@@ -105,6 +118,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		playTimer.setActionCommand("step");
 
 		controls = new JPanel();
+		controls.add(stepBtn);
 		controls.add(playBtn);
 		controls.add(pauseBtn);
 		controls.add(speedSlider);
@@ -114,17 +128,24 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	{
 		initControlsGUI();
 
-		view = new JPanel();
-
+		view = new ViewportPanel<T>(viewport, state);
+		view.setMinimumSize(new Dimension(400, 400));
+		view.setBackground(Color.green);
+		
+//		JScrollPane scrollPane = new JScrollPane(view);
+//		scrollPane.setMaximumSize(new Dimension(300, 300));
+		
 		JPanel mainPanel = new JPanel();
 		mainPanel.add(view);
 		mainPanel.add(controls);
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 
 		frame = new JFrame();
 		frame.setTitle("AutoBoss");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// frame.setResizable(false);
 		frame.setContentPane(mainPanel);
+		frame.pack();
 		frame.setVisible(true);
 	}
 
@@ -147,12 +168,15 @@ public abstract class Simulation<T extends Point> implements ActionListener
 
 	private void setPlaying(boolean playing)
 	{
+		stepBtn.setEnabled(!playing);
 		playBtn.setEnabled(!playing);
 		pauseBtn.setEnabled(playing);
 
 		if (playing) {
 			timerNextStep();
 		}
+		else
+			playTimer.stop();
 
 		this.playing = playing;
 	}
@@ -168,8 +192,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	protected void step()
 	{
 		this.state.step(this.rule);
-
-		viewport.drawState(state, view.getGraphics());
+		view.repaint();
 	}
 
 	/**
@@ -239,6 +262,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String action = e.getActionCommand();
+		System.out.println("action: " + action);
 		if (action.equals("play"))
 			setPlaying(true);
 		else if (action.equals("pause"))

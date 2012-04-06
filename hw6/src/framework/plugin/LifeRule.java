@@ -1,5 +1,7 @@
 package framework.plugin;
 
+import java.util.HashMap;
+
 import framework.interfaces.Rule;
 import framework.lib.Neighborhood;
 import framework.lib.Point2D;
@@ -41,7 +43,12 @@ public class LifeRule implements Rule<Point2D>
 	@Override
 	public State<Point2D> getInitialState()
 	{
-		return new State<Point2D>(new Point2D(5, 5), 2);
+		HashMap<Point2D, Integer> state = new HashMap<Point2D, Integer>();
+		
+		state.put(new Point2D(1,2), 1);
+		state.put(new Point2D(2,2), 1);
+		state.put(new Point2D(3,2), 1);
+		return new State<Point2D>(new Point2D(10, 10), 2, null, state);
 	}
 
 }

@@ -105,25 +105,30 @@ public class State<T extends Point> implements Iterable<T>
 			this.max = max.copy();
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public boolean hasNext()
 		{
-			return (p.compareTo(max) < 1);
+			T maxMinusOne = (T) max.copy();
+			for(int i = 0; i < maxMinusOne.numDimensions(); i++) {
+				maxMinusOne.setCoord(i, maxMinusOne.getCoord(i) -1);
+			}
+			return !p.equals(maxMinusOne);
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public T next()
 		{
+			if (!hasNext())
+				throw new NoSuchElementException("No more elements in the iterator.");
 			T ret = (T) p.copy();
 
 			p.setCoord(0, p.getCoord(0) + 1);
 			int i = 0;
 			while (p.getCoord(i) >= max.getCoord(i)) {
 				p.setCoord(i, min.getCoord(i));
-				if (i + 1 >= p.numDimensions())
-					throw new NoSuchElementException("No more elements in the iterator");
-				p.setCoord(i + 1, p.getCoord(i) + 1);
+				p.setCoord(i + 1, p.getCoord(i+1) + 1);
 				i++;
 			}
 

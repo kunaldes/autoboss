@@ -21,8 +21,8 @@ public class Simulation2D extends Simulation<Point2D>
 	 */
 	public Simulation2D(Rule<Point2D> r, Visualization v)
 	{
-		super(r, new LifeViewPort());
-		throw new UnsupportedOperationException("The method is not implemented yet.");
+		super(r, v, new LifeViewPort());
+		//throw new UnsupportedOperationException("The method is not implemented yet.");
 	}
 
 	/**

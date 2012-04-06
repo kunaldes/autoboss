@@ -170,4 +170,10 @@ public abstract class Point implements Comparable<Point>
 	{
 		return Arrays.hashCode(coords);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return Arrays.toString(coords);
+	}
 }
