@@ -21,10 +21,11 @@ public class ViewportPanel<T extends Point> extends JPanel
 		super();
 		this.visualization = v;
 		this.state = state;
-		this.setMinimumSize(new Dimension(500, 500));
+		this.setMinimumSize(new Dimension(500, 500)); //Decided to make it 500 pixels wide for funzies
 		this.setPreferredSize(new Dimension(500, 500));
 	}
 	
+	@Override
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
