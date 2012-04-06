@@ -1,3 +1,4 @@
-cellularAutomata.interfaces
-cellularAutomata.lib
-cellularAutomata.plugin
+example
+framework.interfaces
+framework.lib
+framework.tests

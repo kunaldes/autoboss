@@ -35,7 +35,7 @@ public interface Rule<T extends Point>
 	 * ruleset. In a 2-D grid, (0,0) represents the top left corner, and in a
 	 * 1-D grid, (0) is the leftmost point.
 	 * 
-	 * @return
+	 * @return the zero point/origin of the grid system.
 	 */
 	public T getOrigin();
 
