@@ -3,9 +3,17 @@ package framework.lib;
 import framework.interfaces.Rule;
 import framework.interfaces.Viewport;
 import framework.interfaces.Visualization;
+import framework.lib.Simulation2D;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.Timer;
 
 
 /**
@@ -25,10 +33,17 @@ import java.awt.event.ActionListener;
 public abstract class Simulation<T extends Point> implements ActionListener
 {
 
+	private Rule<T>		rule;
 	private Viewport<T>	viewport;
 	private State<T>	state;
-	private Rule<T>		rule;
-	private boolean		running	= false;
+
+	private boolean		playing;
+
+	private JFrame		frame;
+	private JPanel		controls, view;
+	private JButton		playBtn, pauseBtn;
+	private JSlider		speedSlider;
+	private Timer		playTimer;
 
 	/**
 	 * This is a factory method takes a rule and a visualization and produces a
@@ -55,9 +70,91 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	/**
 	 * Constructs a simulation.
 	 */
-	protected Simulation()
+	protected Simulation(Rule<T> r, Viewport<T> viewport)
 	{
-		// Gui Stuffs
+		this.rule = r;
+		this.viewport = viewport;
+
+		playing = false;
+	}
+
+	private void initControlsGUI()
+	{
+		playBtn = new JButton();
+		playBtn.setText("Play");
+		playBtn.setActionCommand("play");
+		playBtn.addActionListener(this);
+
+		pauseBtn = new JButton();
+		pauseBtn.setText("Pause");
+		playBtn.setActionCommand("pause");
+		pauseBtn.addActionListener(this);
+
+		speedSlider = new JSlider();
+		speedSlider.setMinimum(1);
+		speedSlider.setMaximum(5);
+		speedSlider.setBorder(BorderFactory.createTitledBorder("Speed"));
+		speedSlider.setMajorTickSpacing(1);
+		speedSlider.setPaintTicks(true);
+		speedSlider.setPaintLabels(true);
+		speedSlider.setSnapToTicks(true);
+		speedSlider.setValue(1);
+
+		playTimer = new Timer(0, this);
+		playTimer.setRepeats(false);
+		playTimer.setActionCommand("step");
+
+		controls = new JPanel();
+		controls.add(playBtn);
+		controls.add(pauseBtn);
+		controls.add(speedSlider);
+	}
+
+	private void initGUI()
+	{
+		initControlsGUI();
+
+		view = new JPanel();
+
+		JPanel mainPanel = new JPanel();
+		mainPanel.add(view);
+		mainPanel.add(controls);
+
+		frame = new JFrame();
+		frame.setTitle("AutoBoss");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// frame.setResizable(false);
+		frame.setContentPane(mainPanel);
+		frame.setVisible(true);
+	}
+
+	private int getSpeed()
+	{
+		int val = speedSlider.getValue() - speedSlider.getMinimum();
+		int range = speedSlider.getMaximum() - speedSlider.getMinimum();
+		double fraction = 1 - ((double) val) / range; // smaller values give
+														// larger delay
+		return (int) (Math.pow(fraction * 10, 3)) + 50;
+	}
+
+	private void timerNextStep()
+	{
+		if (!playTimer.isRunning()) {
+			playTimer.setInitialDelay(getSpeed());
+			playTimer.start();
+		}
+	}
+
+	private void setPlaying(boolean playing)
+	{
+		playBtn.setEnabled(!playing);
+		pauseBtn.setEnabled(playing);
+
+		if (playing) {
+			timerNextStep();
+		}
+
+		this.playing = playing;
 	}
 
 	/**
@@ -71,6 +168,8 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	protected void step()
 	{
 		this.state.step(this.rule);
+
+		viewport.drawState(state, view.getGraphics());
 	}
 
 	/**
@@ -81,7 +180,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	protected void step(int times)
 	{
 		for (int i = 0; i < times; i++) {
-			step();
+			this.state.step(this.rule);
 		}
 	}
 
@@ -93,10 +192,9 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	 */
 	public void run()
 	{
-		this.running = true;
-		while (this.running) {
-			this.state.step(this.rule);
-		}
+		initGUI();
+
+		setPlaying(false);
 	}
 
 	/**
@@ -141,6 +239,13 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String action = e.getActionCommand();
-		if (action.equals("stop")) this.running = false;
+		if (action.equals("play"))
+			setPlaying(true);
+		else if (action.equals("pause"))
+			setPlaying(false);
+		else if (action.equals("step")) {
+			step();
+			if (playing) timerNextStep();
+		}
 	}
 }

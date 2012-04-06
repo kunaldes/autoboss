@@ -3,7 +3,8 @@ package framework.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-import junit.framework.Assert;
+import static org.junit.Assert.fail;
+
 import framework.lib.Point;
 import framework.lib.Point1D;
 import framework.lib.Point2D;
@@ -90,7 +91,7 @@ public class PointTests
 		}
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testAdd1D()
 	{
 		Point1D p1 = new Point1D(-3);
@@ -102,15 +103,11 @@ public class PointTests
 		assertTrue(pointsEqual(p1.add(p3), new Point1D(945345342)));
 		assertTrue(pointsEqual(p2.add(p3), new Point1D(945345346)));
 
-		try {
-			p1.add(new Point2D(0, 0));
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		p1.add(new Point2D(0, 0));
 	}
 
-	@Test
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testAdd2D()
 	{
 		Point2D p1 = new Point2D(9, -3);
@@ -124,20 +121,15 @@ public class PointTests
 
 		try {
 			p1.add(new Point1D(0));
-			Assert.fail("should be exception on prev line");
+			fail("should be exception on prev line");
 		}
 		catch (IllegalArgumentException e) {
 		}
 
-		try {
-			p1.add(null);
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		p1.add(null);
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testSub1D()
 	{
 		Point1D p1 = new Point1D(-3);
@@ -151,20 +143,16 @@ public class PointTests
 
 		try {
 			p1.sub(new Point2D(0, 0));
-			Assert.fail("should be exception on prev line");
+			fail("should be exception on prev line");
 		}
 		catch (IllegalArgumentException e) {
 		}
 
-		try {
-			p1.add(null);
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		p1.add(null);
 	}
 
-	@Test
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testSub2D()
 	{
 		Point2D p1 = new Point2D(9, -3);
@@ -178,17 +166,12 @@ public class PointTests
 
 		try {
 			p1.sub(new Point1D(0));
-			Assert.fail("should be exception on prev line");
+			fail("should be exception on prev line");
 		}
 		catch (IllegalArgumentException e) {
 		}
-
-		try {
-			p1.add(null);
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		
+		p1.add(null);
 	}
 
 	@Test
@@ -213,7 +196,7 @@ public class PointTests
 		assertEquals(1, p2.getCoord());
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testCompareTo1D()
 	{
 		Point1D p1 = new Point1D(-3);
@@ -223,15 +206,11 @@ public class PointTests
 		assertEquals(-1, p1.compareTo(p2));
 		assertEquals(1, p2.compareTo(p1));
 
-		try {
-			p1.compareTo(null);
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		p1.compareTo(null);
 	}
 
-	@Test
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testCompareTo2D()
 	{
 		Point2D p1 = new Point2D(1, -3);
@@ -241,11 +220,6 @@ public class PointTests
 		assertEquals(-1, p1.compareTo(p2));
 		assertEquals(1, p2.compareTo(p1));
 
-		try {
-			p1.compareTo(null);
-			Assert.fail("should be exception on prev line");
-		}
-		catch (IllegalArgumentException e) {
-		}
+		p1.compareTo(null);
 	}
 }
