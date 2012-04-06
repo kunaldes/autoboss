@@ -52,9 +52,24 @@ public class State<T extends Point> implements Iterable<T>
 		@Override
 		public int getCellState(T relPoint)
 		{
+			if (relPoint.numDimensions() != offset.numDimensions()) {
+				throw new IllegalArgumentException("Incorrect number of dimensions");
+			}
+
+			for (int i = 0; i < relPoint.numDimensions(); i++) {
+				int c = relPoint.getCoord(i);
+				if (c < -radius || c > radius) {
+					throw new IllegalArgumentException("Requested point out of bounds of radius");
+				}
+			}
+
 			T p = (T) relPoint.add(offset);
 			p = modPoint(p);
-			return grid.get(p);
+
+			Integer i = grid.get(p);
+			if (i == null) i = 0;
+
+			return i;
 		}
 
 		@Override
@@ -67,44 +82,49 @@ public class State<T extends Point> implements Iterable<T>
 
 	private class PointIterator implements Iterator<T>
 	{
+		Point	min;
 		Point	p;
 		Point	max;
 
 		@SuppressWarnings("unchecked")
 		private PointIterator(T max)
 		{
-			T p = (T) max.copy();
+			T origin = (T) max.copy();
 			for (int i = 0; i < max.numDimensions(); i++)
-				p.setCoord(i, 0);
-			this.p = p;
+				origin.setCoord(i, 0);
+			this.min = origin;
 			this.max = max.copy();
 		}
 
 		private PointIterator(T start, T max)
 		{
-			this.p = start.copy();
+			this.min = start.copy();
 			this.max = max.copy();
 		}
 
 		@Override
 		public boolean hasNext()
 		{
-			if (p.compareTo(max) < 1) return true;
-			return false;
+			return (p.compareTo(max) < 1);
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		public T next()
 		{
+			T ret = (T) p.copy();
+
+			p.setCoord(0, p.getCoord(0) + 1);
 			int i = 0;
-			while (p.getCoord(i) + 1 >= max.getCoord(i)) {
+			while (p.getCoord(i) >= max.getCoord(i)) {
+				p.setCoord(i, min.getCoord(i));
+				if (i + 1 >= p.numDimensions())
+					throw new NoSuchElementException("No more elements in the iterator");
+				p.setCoord(i + 1, p.getCoord(i) + 1);
 				i++;
-				if (i >= p.numDimensions())
-					throw new NoSuchElementException("There are no more elements");
 			}
-			p.setCoord(i, p.getCoord(i) + 1);
-			return (T) p.copy();
+
+			return ret;
 		}
 
 		@Override
