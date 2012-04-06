@@ -58,13 +58,12 @@ public abstract class Simulation<T extends Point> implements ActionListener
 			Visualization v)
 	{
 		Class<? extends Point> c = r.getOrigin().getClass();
-		/*
 		if (c.isInstance(Point1D.class))
 			return (Simulation<T>) new Simulation1D((Rule<Point1D>) r, v);
-		else if (c.isInstance(Point2D.class)) */
+		else if (c.isInstance(Point2D.class))
 			return (Simulation<T>) new Simulation2D((Rule<Point2D>) r, v);
-		//else
-			//throw new RuntimeException("Illegal Point");
+		else
+			throw new RuntimeException("Illegal Point");
 	}
 
 	/**
@@ -132,7 +131,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	{
 		int val = speedSlider.getValue() - speedSlider.getMinimum();
 		int range = speedSlider.getMaximum() - speedSlider.getMinimum();
-		double fraction = 1 - ((double) val) / range; // smaller values to give
+		double fraction = 1 - ((double) val) / range; // smaller values give
 														// larger delay
 		return (int) (Math.pow(fraction * 10, 3)) + 50;
 	}
