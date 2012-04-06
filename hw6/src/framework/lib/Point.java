@@ -143,6 +143,13 @@ public abstract class Point implements Comparable<Point>
 		}
 	}
 
+	/**
+	 * Create an new point and add the coordinates of point o
+	 * 
+	 * @param o a point which coordinates will be added
+	 * @return a new point which has coordinates that are the sum of this
+	 *         point's coordinates and o's coordinates
+	 */
 	public Point add(Point o)
 	{
 		if (!this.getClass().isInstance(o))
@@ -154,6 +161,12 @@ public abstract class Point implements Comparable<Point>
 		return p;
 	}
 
+	/**
+	 * Create an new point and substracts the coordinates of point o
+	 * 
+	 * @param o a point which coordinates will be subtracted
+	 * @return a new point with this point's coordinates minus o's coordinates
+	 */
 	public Point sub(Point o)
 	{
 		if (!this.getClass().isInstance(o))
@@ -170,7 +183,7 @@ public abstract class Point implements Comparable<Point>
 	{
 		return Arrays.hashCode(coords);
 	}
-	
+
 	@Override
 	public String toString()
 	{
