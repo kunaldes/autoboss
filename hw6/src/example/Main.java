@@ -5,6 +5,7 @@ import java.util.HashMap;
 import framework.interfaces.Rule;
 import framework.lib.Neighborhood;
 import framework.lib.Point1D;
+import framework.lib.Point2D;
 import framework.lib.Simulation;
 import framework.lib.State;
 
@@ -16,6 +17,8 @@ public class Main
 	 */
 	public static void main(String[] args)
 	{
+		//this is an example of a 1D simulation. Uncomment it to make it work
+		/*
 		Rule<Point1D> rule = new Rule<Point1D>(){
 
 			@Override
@@ -49,8 +52,13 @@ public class Main
 		LifeVisualization viz = new LifeVisualization();
 		
 		Simulation<Point1D> sim = Simulation.getSimulation(rule, viz);
+		*/
 		
-		sim.run();
+		LifeRule life = new LifeRule();
+		LifeVisualization vis = new LifeVisualization();
+
+		Simulation.getSimulation(life, vis).run();
+
 	}
 
 }

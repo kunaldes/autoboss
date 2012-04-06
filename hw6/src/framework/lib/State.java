@@ -96,8 +96,7 @@ public class State<T extends Point> implements Iterable<T>
 			this.min = origin;
 			this.p = min.copy();
 			this.max = max.copy();
-			for(int i = 0; i < max.numDimensions(); i++)
-			{
+			for (int i = 0; i < max.numDimensions(); i++) {
 				this.max.setCoord(i, this.max.getCoord(i) - 1);
 			}
 		}
@@ -107,8 +106,7 @@ public class State<T extends Point> implements Iterable<T>
 			this.min = start.copy();
 			this.p = min.copy();
 			this.max = max.copy();
-			for(int i = 0; i < max.numDimensions(); i++)
-			{
+			for (int i = 0; i < max.numDimensions(); i++) {
 				this.max.setCoord(i, this.max.getCoord(i) - 1);
 			}
 		}
@@ -116,7 +114,7 @@ public class State<T extends Point> implements Iterable<T>
 		@Override
 		public boolean hasNext()
 		{
-			return p!=null;
+			return p != null;
 		}
 
 		@SuppressWarnings("unchecked")
@@ -129,13 +127,13 @@ public class State<T extends Point> implements Iterable<T>
 
 			p.setCoord(0, p.getCoord(0) + 1);
 			int i = 0;
-			while (p.getCoord(i) >= max.getCoord(i) + 1 && i + 1 < p.numDimensions()) {
+			while (p.getCoord(i) >= max.getCoord(i) + 1
+					&& i + 1 < p.numDimensions()) {
 				p.setCoord(i, min.getCoord(i));
-				p.setCoord(i + 1, p.getCoord(i+1) + 1);
+				p.setCoord(i + 1, p.getCoord(i + 1) + 1);
 				i++;
 			}
-			if(ret.equals(max))
-				p = null;
+			if (ret.equals(max)) p = null;
 			return ret;
 		}
 
@@ -155,7 +153,7 @@ public class State<T extends Point> implements Iterable<T>
 	/**
 	 * Creates a new State with default no wrapping
 	 * 
-	 * @param size The point farthest from the origin, giving the bounds
+	 * @param size The bounding point, acts like "array.length".
 	 * @param numStates The total number of states a cell can be in. For
 	 *            example, Conway's Game of Life has 2 states, alive and dead.
 	 */
@@ -405,7 +403,8 @@ public class State<T extends Point> implements Iterable<T>
 	}
 
 	/**
-	 * Steps the world once based on the rules specified in r
+	 * Steps the world once based on the rules specified in r. This modifies the
+	 * state in place, but the modification is atomic.
 	 * 
 	 * @param r the rule used to step the state once.
 	 */

@@ -11,7 +11,7 @@ import framework.lib.State;
 public class LifeRule implements Rule<Point2D>
 {
 
-	private static final int	NeighborHoodSize	= 1;
+	private static final int	NeighborhoodSize	= 1;
 
 	@Override
 	public int stepCell(Neighborhood<Point2D> n)
@@ -37,18 +37,22 @@ public class LifeRule implements Rule<Point2D>
 	@Override
 	public int getNeighborhoodSize()
 	{
-		return LifeRule.NeighborHoodSize;
+		return LifeRule.NeighborhoodSize;
 	}
 
 	@Override
 	public State<Point2D> getInitialState()
 	{
 		HashMap<Point2D, Integer> state = new HashMap<Point2D, Integer>();
-		
-		state.put(new Point2D(1,2), 1);
-		state.put(new Point2D(2,2), 1);
-		state.put(new Point2D(3,2), 1);
-		return new State<Point2D>(new Point2D(10, 10), 2, null, state);
+		boolean[] wraps = { true, true };
+
+		// Make a glider
+		state.put(new Point2D(1, 0), 1);
+		state.put(new Point2D(0, 2), 1);
+		state.put(new Point2D(1, 2), 1);
+		state.put(new Point2D(2, 1), 1);
+		state.put(new Point2D(2, 2), 1);
+		return new State<Point2D>(new Point2D(10, 10), 2, wraps, state);
 	}
 
 }
