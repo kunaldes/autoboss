@@ -43,7 +43,7 @@ public class State<T extends Point> implements Iterable<T>
 			T p2 = (T) offset.copy();
 			for (int i = 0; i < p1.numDimensions(); i++) {
 				p1.setCoord(i, -radius);
-				p2.setCoord(i, radius);
+				p2.setCoord(i, radius + 1);
 			}
 			return new PointIterator(p1, p2);
 		}
@@ -92,13 +92,16 @@ public class State<T extends Point> implements Iterable<T>
 			T origin = (T) max.copy();
 			for (int i = 0; i < max.numDimensions(); i++)
 				origin.setCoord(i, 0);
+
 			this.min = origin;
+			this.p = min.copy();
 			this.max = max.copy();
 		}
 
 		private PointIterator(T start, T max)
 		{
 			this.min = start.copy();
+			this.p = min.copy();
 			this.max = max.copy();
 		}
 
