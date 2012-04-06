@@ -1,4 +1,4 @@
-package framework.plugin;
+package example;
 
 import java.util.HashMap;
 

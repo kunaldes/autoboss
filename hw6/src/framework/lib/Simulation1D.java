@@ -1,8 +1,8 @@
 package framework.lib;
 
+import example.DefaultViewport1D;
 import framework.interfaces.Rule;
 import framework.interfaces.Visualization;
-import framework.plugin.DefaultViewport1D;
 
 
 /**

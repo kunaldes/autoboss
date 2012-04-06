@@ -1,4 +1,4 @@
-package framework.plugin;
+package example;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -8,31 +8,31 @@ import javax.swing.JToolBar;
 
 import framework.interfaces.Viewport;
 import framework.interfaces.Visualization;
-import framework.lib.Point2D;
+import framework.lib.Point1D;
 import framework.lib.State;
 
 
-public class DefaultViewport2D implements Viewport<Point2D>
+public class DefaultViewport1D implements Viewport<Point1D>
 {
 	private Visualization	v;
 
 	@Override
-	public void drawState(State<Point2D> s, Graphics g)
+	public void drawState(State<Point1D> s, Graphics g)
 	{
 		Rectangle r = g.getClipBounds();
-		Point2D size = s.getSize();
-		int cellWidth = r.height/((size.getX() < size.getY()) ? size.getY() : size.getX());
-		for (Point2D p : s) {
+		Point1D size = s.getSize();
+		int cellWidth = r.width/size.getCoord();
+		for (Point1D p : s) {
 			if (s.getCellState(p) == 1) {
 				g.setColor(v.getColorRep(1));
-				g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
+				g.fillRect(p.getCoord() * cellWidth, 0, cellWidth, cellWidth);
 			}
 			else {
 				g.setColor(v.getColorRep(0));
-				g.fillRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
+				g.fillRect(p.getCoord() * cellWidth, 0, cellWidth, cellWidth);
 			}
 			g.setColor(Color.white);
-			g.drawRect(p.getX() * cellWidth, p.getY() * cellWidth, cellWidth, cellWidth);
+			g.drawRect(p.getCoord() * cellWidth, 0, cellWidth, cellWidth);
 		}
 	}
 
