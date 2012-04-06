@@ -2,7 +2,7 @@ package framework.lib;
 
 import framework.interfaces.Rule;
 import framework.interfaces.Visualization;
-import framework.plugin.LifeViewPort;
+import framework.plugin.DefaultViewport2D;
 
 
 /**
@@ -21,7 +21,7 @@ public class Simulation2D extends Simulation<Point2D>
 	 */
 	public Simulation2D(Rule<Point2D> r, Visualization v)
 	{
-		super(r, v, new LifeViewPort());
+		super(r, v, new DefaultViewport2D());
 		//throw new UnsupportedOperationException("The method is not implemented yet.");
 	}
 

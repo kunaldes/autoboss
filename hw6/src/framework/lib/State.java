@@ -96,6 +96,10 @@ public class State<T extends Point> implements Iterable<T>
 			this.min = origin;
 			this.p = min.copy();
 			this.max = max.copy();
+			for(int i = 0; i < max.numDimensions(); i++)
+			{
+				this.max.setCoord(i, this.max.getCoord(i) - 1);
+			}
 		}
 
 		private PointIterator(T start, T max)
@@ -103,17 +107,16 @@ public class State<T extends Point> implements Iterable<T>
 			this.min = start.copy();
 			this.p = min.copy();
 			this.max = max.copy();
+			for(int i = 0; i < max.numDimensions(); i++)
+			{
+				this.max.setCoord(i, this.max.getCoord(i) - 1);
+			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public boolean hasNext()
 		{
-			T maxMinusOne = (T) max.copy();
-			for(int i = 0; i < maxMinusOne.numDimensions(); i++) {
-				maxMinusOne.setCoord(i, maxMinusOne.getCoord(i) -1);
-			}
-			return !p.equals(maxMinusOne);
+			return p!=null;
 		}
 
 		@SuppressWarnings("unchecked")
@@ -126,12 +129,13 @@ public class State<T extends Point> implements Iterable<T>
 
 			p.setCoord(0, p.getCoord(0) + 1);
 			int i = 0;
-			while (p.getCoord(i) >= max.getCoord(i)) {
+			while (p.getCoord(i) >= max.getCoord(i) + 1 && i + 1 < p.numDimensions()) {
 				p.setCoord(i, min.getCoord(i));
 				p.setCoord(i + 1, p.getCoord(i+1) + 1);
 				i++;
 			}
-
+			if(ret.equals(max))
+				p = null;
 			return ret;
 		}
 

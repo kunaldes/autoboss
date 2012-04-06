@@ -2,6 +2,7 @@ package framework.lib;
 
 import framework.interfaces.Rule;
 import framework.interfaces.Visualization;
+import framework.plugin.DefaultViewport1D;
 
 
 /**
@@ -21,8 +22,7 @@ public class Simulation1D extends Simulation<Point1D>
 	 */
 	public Simulation1D(Rule<Point1D> r, Visualization v)
 	{
-		super(r, v, null); // null is placeholder
-		throw new UnsupportedOperationException("The method is not implemented yet.");
+		super(r, v, new DefaultViewport1D());
 	}
 
 	/**

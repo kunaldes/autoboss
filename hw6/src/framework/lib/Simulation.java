@@ -1,6 +1,5 @@
 package framework.lib;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,11 +129,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 
 		view = new ViewportPanel<T>(viewport, state);
 		view.setMinimumSize(new Dimension(400, 400));
-		view.setBackground(Color.green);
-		
-//		JScrollPane scrollPane = new JScrollPane(view);
-//		scrollPane.setMaximumSize(new Dimension(300, 300));
-		
+
 		JPanel mainPanel = new JPanel();
 		mainPanel.add(view);
 		mainPanel.add(controls);
@@ -143,7 +138,7 @@ public abstract class Simulation<T extends Point> implements ActionListener
 		frame = new JFrame();
 		frame.setTitle("AutoBoss");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// frame.setResizable(false);
+		frame.setResizable(false);
 		frame.setContentPane(mainPanel);
 		frame.pack();
 		frame.setVisible(true);
@@ -262,7 +257,6 @@ public abstract class Simulation<T extends Point> implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		String action = e.getActionCommand();
-		System.out.println("action: " + action);
 		if (action.equals("play"))
 			setPlaying(true);
 		else if (action.equals("pause"))

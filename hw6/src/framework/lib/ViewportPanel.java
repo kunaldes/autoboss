@@ -1,6 +1,5 @@
 package framework.lib;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -22,7 +21,6 @@ public class ViewportPanel<T extends Point> extends JPanel
 		super();
 		this.visualization = v;
 		this.state = state;
-		this.setBackground(Color.green);
 		this.setMinimumSize(new Dimension(500, 500));
 		this.setPreferredSize(new Dimension(500, 500));
 	}
